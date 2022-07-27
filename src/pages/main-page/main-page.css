@@ -1,0 +1,7 @@
+.main-hero__wrapper{
+    height:100%;
+    width: 100vw;
+    background-color:var(--main) ;
+    color:var(--white);
+
+}
