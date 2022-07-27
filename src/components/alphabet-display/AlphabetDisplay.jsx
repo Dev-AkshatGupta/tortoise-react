@@ -46,9 +46,6 @@ const AlphabetDisplay = () => {
 
   return (
     <div className="alphabet-display__wrapper">
-      {/* {gamesState.input[gamesState.input ? gamesState.input.length-1 : 0] ===
-        alphabets[gamesState.input ? gamesState.input.length : 0] &&
-        alphabets[gamesState.input ? gamesState.input.length : 0]} */}
       {alphabets[gamesState.input ? gamesState.input.length : 0]} 
     </div>
   );
