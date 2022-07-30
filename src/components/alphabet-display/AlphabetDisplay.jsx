@@ -36,8 +36,14 @@ const AlphabetDisplay = () => {
   const { gamesState } = useGameContext();
   
   const [alphabets, setAlphabets] = useState([]);
-const letterToDisplay=alphabets[gamesState.input ? gamesState.input.length : 0];
-const alphabetBeforLetterToDisplay=alphabets[gamesState.input.length-1];
+// const letterToDisplay=alphabets[gamesState.input ? gamesState.input.length : 0];
+const indexToDisplay = gamesState.input
+  ? gamesState.keyup ===
+    alphabets[gamesState.input.length - 1 ]
+    ? gamesState.input.length
+    : gamesState.input.length-1
+  : 0;
+const letterToDisplay = alphabets[indexToDisplay];
   useEffect(() => {
     const randomAlphabets = randomElements(alphabetsArr, 20);
     setAlphabets(randomAlphabets);
@@ -47,8 +53,7 @@ const alphabetBeforLetterToDisplay=alphabets[gamesState.input.length-1];
 
   return (
     <div className="alphabet-display__wrapper">
-      {letterToDisplay ===
-        gamesState.input[gamesState.input ? gamesState.input.length-1 : 0]?letterToDisplay:alphabetBeforLetterToDisplay}
+      {letterToDisplay}
     </div>
   );
 };

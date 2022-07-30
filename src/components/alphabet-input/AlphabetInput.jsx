@@ -8,6 +8,12 @@ const AlphabetInput = () => {
     onChange={(e)=>{
       gamesDispatch({type:"INPUT",payload:e.target.value})
     }}
+    onKeyUp={(e)=>{
+      console.log({keyup:e.target.value})
+    gamesDispatch({type:"KEYUP",payload:e.target.value})
+    }
+    
+    }
     />
   </div>;
 };
