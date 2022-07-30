@@ -33,20 +33,22 @@ const AlphabetDisplay = () => {
     "y",
     "z",
   ];
+  const { gamesState } = useGameContext();
   
   const [alphabets, setAlphabets] = useState([]);
-
+const letterToDisplay=alphabets[gamesState.input ? gamesState.input.length : 0];
+const alphabetBeforLetterToDisplay=alphabets[gamesState.input.length-1];
   useEffect(() => {
     const randomAlphabets = randomElements(alphabetsArr, 20);
     setAlphabets(randomAlphabets);
   }, []);
 
   console.log(alphabets);
-  const { gamesState } = useGameContext();
 
   return (
     <div className="alphabet-display__wrapper">
-      {alphabets[gamesState.input ? gamesState.input.length : 0]} 
+      {letterToDisplay ===
+        gamesState.input[gamesState.input ? gamesState.input.length-1 : 0]?letterToDisplay:alphabetBeforLetterToDisplay}
     </div>
   );
 };
