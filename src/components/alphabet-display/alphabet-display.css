@@ -1,6 +1,6 @@
 .alphabet-display__wrapper{
     width: 90vw;
-    height: 10rem;
+    /* height: 10rem; */
     font: 800;
     color: var(--accent);
     font-size: 10rem;

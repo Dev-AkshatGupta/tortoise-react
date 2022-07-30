@@ -7,6 +7,7 @@ const AlphabetInput = () => {
     <input type="text"
     onChange={(e)=>{
       gamesDispatch({type:"INPUT",payload:e.target.value})
+      console.log(e.target.value);
     }}
     />
   </div>;

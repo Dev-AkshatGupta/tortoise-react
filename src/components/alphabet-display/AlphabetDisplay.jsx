@@ -35,29 +35,52 @@ const AlphabetDisplay = () => {
   const { gamesState } = useGameContext();
 
   const [alphabets, setAlphabets] = useState("");
-
+  const [display, setDisplay] = useState("");
   useEffect(() => {
     const randomAlphabets = randomElements(alphabetsArr, 20).join(" ");
     setAlphabets(randomAlphabets);
   }, []);
-  const alphabetsSection = gamesState.input
+  let alphabetsSection = gamesState.input
     ? alphabets.split(" ").reduce((acc, curr, i) => {
         if (i < gamesState.input.length) return acc + curr;
         return acc;
       }, "")
     : "";
-  const areAlphabetsSame = alphabetsSection === gamesState.input;
-  const alphabetsToDisplay = gamesState.input
+  let areAlphabetsSame = alphabetsSection === gamesState.input;
+  let alphabetsToDisplay = gamesState.input
     ? areAlphabetsSame
       ? alphabets[alphabetsSection.length]
       : alphabets[alphabetsSection.length - 1]
     : alphabets[0];
-
-  // console.log(alphabets);
-  // console.log(alphabetsSection);
-  console.log(areAlphabetsSame);
-  console.log(alphabetsToDisplay);
-  return <div className="alphabet-display__wrapper">{alphabetsToDisplay}</div>;
+  // let alphabetsToDisplay = () => {
+  //   if (gamesState.input) {
+  //     if (areAlphabetsSame) {
+  //       console.log({ answer: alphabets[alphabetsSection.length] });
+  //       console.log(alphabetsSection.length);
+  //       console.log(alphabets);
+  //       return alphabets[alphabetsSection.length];
+  //     } else {
+  //       return alphabets[alphabetsSection.length - 1];
+  //     }
+  //   } else {
+  //     console.log(alphabets[0]);
+  //     return alphabets[0];
+  //   }
+  // };
+  useEffect(() => {
+    setDisplay(alphabetsToDisplay);
+  }, [gamesState.input]);
+  console.log({ alphabets });
+  console.log(gamesState.input);
+  console.log({ alphabetsSection });
+  console.log({ areAlphabetsSame });
+  console.log({ alphabetsToDisplay: alphabetsToDisplay });
+  return (
+    <div className="alphabet-display__wrapper">
+      {/* {alphabetsToDisplay()} */}
+      {display}
+    </div>
+  );
 };
 
 export default AlphabetDisplay;
