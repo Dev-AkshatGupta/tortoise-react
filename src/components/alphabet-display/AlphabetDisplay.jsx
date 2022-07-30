@@ -3,7 +3,6 @@ import "./alphabet-display.css";
 import { randomElements } from "../../utils/randomElemets";
 import { useGameContext } from "../../context-and-reducers/GamesContextProvider";
 const AlphabetDisplay = () => {
-  
   const alphabetsArr = [
     "a",
     "b",
@@ -34,23 +33,31 @@ const AlphabetDisplay = () => {
     "z",
   ];
   const { gamesState } = useGameContext();
-  
-  const [alphabets, setAlphabets] = useState([]);
-const letterToDisplay=alphabets[gamesState.input ? gamesState.input.length : 0];
-const alphabetBeforLetterToDisplay=alphabets[gamesState.input.length-1];
+
+  const [alphabets, setAlphabets] = useState("");
+
   useEffect(() => {
-    const randomAlphabets = randomElements(alphabetsArr, 20);
+    const randomAlphabets = randomElements(alphabetsArr, 20).join(" ");
     setAlphabets(randomAlphabets);
   }, []);
+  const alphabetsSection = gamesState.input
+    ? alphabets.split(" ").reduce((acc, curr, i) => {
+        if (i < gamesState.input.length) return acc + curr;
+        return acc;
+      }, "")
+    : "";
+  const areAlphabetsSame = alphabetsSection === gamesState.input;
+  const alphabetsToDisplay = gamesState.input
+    ? areAlphabetsSame
+      ? alphabets[alphabetsSection.length]
+      : alphabets[alphabetsSection.length - 1]
+    : alphabets[0];
 
-  console.log(alphabets);
-
-  return (
-    <div className="alphabet-display__wrapper">
-      {letterToDisplay ===
-        gamesState.input[gamesState.input ? gamesState.input.length-1 : 0]?letterToDisplay:alphabetBeforLetterToDisplay}
-    </div>
-  );
+  // console.log(alphabets);
+  // console.log(alphabetsSection);
+  console.log(areAlphabetsSame);
+  console.log(alphabetsToDisplay);
+  return <div className="alphabet-display__wrapper">{alphabetsToDisplay}</div>;
 };
 
 export default AlphabetDisplay;
