@@ -50,11 +50,13 @@ const AlphabetDisplay = () => {
     }
     if (time.second >= 59)
       setTime((prev) => ({ second: 0, minute: prev.minute++ }));
+    console.log(time);
   };
   useEffect(() => {
     intervalIdRef.current = setInterval(() => {
       setMiliSeconds((prev) => prev + 100);
     }, 100);
+    console.log({ intervalId: intervalIdRef });
     highScoreRef.current = JSON.parse(localStorage.getItem("highScore"));
     return () => {
       clearInterval(intervalIdRef.current);
@@ -99,7 +101,6 @@ const AlphabetDisplay = () => {
 
   return (
     <>
-      {" "}
       <div className="alphabet-display__wrapper">{currentAlphabet}</div>
       <p>
         Highest Score:{highScoreRef?.current?.minute}:
