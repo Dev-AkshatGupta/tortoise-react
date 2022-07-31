@@ -66,12 +66,11 @@ const AlphabetDisplay = () => {
   }, [miliSeconds]);
 
   useEffect(() => {
-    console.log(gamesState.keyup === currentAlphabet);
-    console.log(gamesState.keyup == currentAlphabet);
     if (gamesState.keyup === currentAlphabet) {
       setCounter((prev) => prev + 1);
+
       if (counter >= 21) {
-        if (highScoreRef.current?.second) {
+        if (highScoreRef.current?.second || highScoreRef.current?.minute) {
           if (highScoreRef.current.minute >= time.minute) {
             if (highScoreRef.current.second >= time.second) {
               setCurrentAlphabet(() => "SUCCESS");
@@ -93,22 +92,30 @@ const AlphabetDisplay = () => {
     ) {
       setMiliSeconds((prev) => prev + 500);
     }
-    console.log(gamesState);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gamesState.keyup,gamesState.input]);
+  }, [gamesState.input]);
 
   return (
     <>
-      <div className="alphabet-display__wrapper">{currentAlphabet}</div>
-      <p>
-        {highScoreRef?.current?.minute || highScoreRef?.current?.second
-          ? `Highest Score:${highScoreRef?.current?.minute}:
+      <div className="alphabet-display__wrapper">
+        <span className="alphabet-display">{currentAlphabet}</span>
+      </div>
+      <div>
+        <p className="time-wrapper">
+          {highScoreRef?.current?.minute || highScoreRef?.current?.second
+            ? `Highest Score:${highScoreRef?.current?.minute}:
         ${highScoreRef?.current?.second}s`
-          : "For now there is no high score"}
-      </p>
-      <p>{`${time.minute < 10 ? `0${time.minute}` : time.minute}m:${
-        time.second < 10 ? `0${time.second}` : time.second
-      }s:${miliSeconds}ms`}</p>
+            : "For now there is no high score"}
+        </p>
+      </div>
+      <div className="time-wrapper">
+        <p className="time">
+          time:
+          {`${time.minute < 10 ? `0${time.minute}` : time.minute}m:${
+            time.second < 10 ? `0${time.second}` : time.second
+          }s:${miliSeconds}ms`}
+        </p>
+      </div>
     </>
   );
 };
