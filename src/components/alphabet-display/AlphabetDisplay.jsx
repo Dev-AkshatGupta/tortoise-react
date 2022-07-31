@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./alphabet-display.css";
-import { randomElements } from "../../utils/randomElemets";
 import { useGameContext } from "../../context-and-reducers/GamesContextProvider";
 const AlphabetDisplay = () => {
-  
   const alphabetsArr = [
     "a",
     "b",
@@ -33,28 +31,79 @@ const AlphabetDisplay = () => {
     "y",
     "z",
   ];
+  const randomAlphabets = () => {
+    return alphabetsArr[Math.floor(Math.random() * alphabetsArr.length)];
+  };
   const { gamesState } = useGameContext();
-  
-  const [alphabets, setAlphabets] = useState([]);
-// const letterToDisplay=alphabets[gamesState.input ? gamesState.input.length : 0];
-const indexToDisplay = gamesState.input
-  ? gamesState.keyup ===
-    alphabets[gamesState.input.length - 1 ]
-    ? gamesState.input.length
-    : gamesState.input.length-1
-  : 0;
-const letterToDisplay = alphabets[indexToDisplay];
+  const [counter, setCounter] = useState(0);
+  const [miliSeconds, setMiliSeconds] = useState(0);
+  const [time, setTime] = useState({ second: 0, minute: 0 });
+  const [currentAlphabet, setCurrentAlphabet] = useState("");
+  let highScoreRef = useRef(null);
+  let intervalIdRef = useRef(null);
+
+  const timeTaken = () => {
+    if (miliSeconds >= 900) {
+      setMiliSeconds((prev) => prev - 1000);
+      setTime((prev) => ({ ...prev, second: prev.second++ }));
+    }
+    if (time.second >= 59)
+      setTime((prev) => ({ second: 0, minute: prev.minute++ }));
+  };
   useEffect(() => {
-    const randomAlphabets = randomElements(alphabetsArr, 20);
-    setAlphabets(randomAlphabets);
+    intervalIdRef.current = setInterval(() => {
+      setMiliSeconds((prev) => prev + 100);
+    }, 100);
+    highScoreRef.current = JSON.parse(localStorage.getItem("highScore"));
+    return () => {
+      clearInterval(intervalIdRef.current);
+    };
   }, []);
 
-  console.log(alphabets);
+  useEffect(() => {
+    timeTaken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [miliSeconds]);
+
+  useEffect(() => {
+    if (gamesState.keyup === currentAlphabet) {
+      setCounter((prev) => prev + 1);
+      if (counter >= 5) {
+        if (highScoreRef.current?.second) {
+          if (highScoreRef.current.minute >= time.minute) {
+            if (highScoreRef.current.second >= time.second) {
+              setCurrentAlphabet("SUCCESS");
+              localStorage.setItem("highScore", JSON.stringify(time));
+            } else {
+              setCurrentAlphabet("FAILURE");
+            }
+          }
+        } else {
+          localStorage.setItem("highScore", JSON.stringify(time));
+        }
+        clearInterval(intervalIdRef.current);
+      } else {
+        setCurrentAlphabet(randomAlphabets());
+      }
+    } else if (
+      gamesState.keyup !== "Backspace" ||
+      gamesState.keyup !== "Enter"
+    ) {
+      setMiliSeconds((prev) => prev + 500);
+      console.log(miliSeconds);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gamesState.keyup]);
 
   return (
-    <div className="alphabet-display__wrapper">
-      {letterToDisplay}
-    </div>
+    <>
+      {" "}
+      <div className="alphabet-display__wrapper">{currentAlphabet}</div>
+      <p>Highest Score:{highScoreRef?.current?.second}</p>
+      <p>{`${time.minute < 10 ? `0${time.minute}` : time.minute}m:${
+        time.second < 10 ? `0${time.second}` : time.second
+      }s:${miliSeconds}ms`}</p>
+    </>
   );
 };
 

@@ -9,11 +9,11 @@ const AlphabetInput = () => {
       gamesDispatch({type:"INPUT",payload:e.target.value})
     }}
     onKeyUp={(e)=>{
-      console.log({keyup:e.target.value})
-    gamesDispatch({type:"KEYUP",payload:e.target.value})
-    }
+    gamesDispatch({type:"KEYUP",payload:e.key})
+    }}
+   
     
-    }
+    
     />
   </div>;
 };

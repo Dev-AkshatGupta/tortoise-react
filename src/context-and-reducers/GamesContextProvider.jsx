@@ -9,7 +9,6 @@ const GamesContextProvider = ({children}) => {
   function reducer(state,action){
 switch (action.type) {
   case "INPUT":
-    console.log(action.payload);
     return{...state,input:action.payload}
 case "KEYUP":
   return {...state,keyup:action.payload}
