@@ -95,7 +95,7 @@ const AlphabetDisplay = () => {
     }
     console.log(gamesState);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gamesState.keyup]);
+  }, [gamesState.keyup,gamesState.input]);
 
   return (
     <>
