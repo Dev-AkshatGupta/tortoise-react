@@ -46,6 +46,7 @@ const AlphabetDisplay = () => {
     if (miliSeconds >= 900) {
       setTime((prev) => ({ ...prev, second: prev.second++ }));
       setMiliSeconds((prev) => prev - 900);
+      console.log(time);
     }
     if (time.second >= 59)
       setTime((prev) => ({ second: 0, minute: prev.minute++ }));
@@ -100,7 +101,10 @@ const AlphabetDisplay = () => {
     <>
       {" "}
       <div className="alphabet-display__wrapper">{currentAlphabet}</div>
-      <p>Highest Score:{highScoreRef?.current?.minute}:{highScoreRef?.current?.second}s</p>
+      <p>
+        Highest Score:{highScoreRef?.current?.minute}:
+        {highScoreRef?.current?.second}s
+      </p>
       <p>{`${time.minute < 10 ? `0${time.minute}` : time.minute}m:${
         time.second < 10 ? `0${time.second}` : time.second
       }s:${miliSeconds}ms`}</p>
