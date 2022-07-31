@@ -68,11 +68,13 @@ const AlphabetDisplay = () => {
   useEffect(() => {
     if (gamesState.keyup === currentAlphabet) {
       setCounter((prev) => prev + 1);
-
       if (counter >= 21) {
         if (highScoreRef.current?.second || highScoreRef.current?.minute) {
           if (highScoreRef.current.minute >= time.minute) {
             if (highScoreRef.current.second >= time.second) {
+              setCurrentAlphabet(() => "SUCCESS");
+              localStorage.setItem("highScore", JSON.stringify(time));
+            }else if(highScoreRef.current.minute > time.minute){
               setCurrentAlphabet(() => "SUCCESS");
               localStorage.setItem("highScore", JSON.stringify(time));
             } else {
