@@ -74,10 +74,10 @@ const AlphabetDisplay = () => {
         if (highScoreRef.current?.second) {
           if (highScoreRef.current.minute >= time.minute) {
             if (highScoreRef.current.second >= time.second) {
-              setCurrentAlphabet("SUCCESS");
+              setCurrentAlphabet(() => "SUCCESS");
               localStorage.setItem("highScore", JSON.stringify(time));
             } else {
-              setCurrentAlphabet("FAILURE");
+              setCurrentAlphabet(() => "FAILURE");
             }
           }
         } else {
@@ -85,7 +85,7 @@ const AlphabetDisplay = () => {
         }
         clearInterval(intervalIdRef.current);
       } else {
-        setCurrentAlphabet(randomAlphabets());
+        setCurrentAlphabet(() => randomAlphabets());
       }
     } else if (
       gamesState.keyup !== "backspace" ||
@@ -93,6 +93,7 @@ const AlphabetDisplay = () => {
     ) {
       setMiliSeconds((prev) => prev + 500);
     }
+    console.log(gamesState);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gamesState.keyup]);
 

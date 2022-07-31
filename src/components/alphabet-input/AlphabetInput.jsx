@@ -6,11 +6,11 @@ const AlphabetInput = () => {
   return <div>
     <input type="text"
     onChange={(e)=>{
-      gamesDispatch({type:"INPUT",payload:e.target.value})
+      gamesDispatch({type:"INPUT",payload:e.target.value});
+      // gamesDispatch({type:"KEY",payload:[...e.target.value.toLowerCase()].reverse()[0]})
     }}
     onKeyUp={(e)=>{
     gamesDispatch({type:"KEYUP",payload:e.key.toLowerCase()})
-    console.log(e.key.toLowerCase())
     }}
    
     
