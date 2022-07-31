@@ -103,8 +103,8 @@ const AlphabetDisplay = () => {
     <>
       <div className="alphabet-display__wrapper">{currentAlphabet}</div>
       <p>
-        Highest Score:{highScoreRef?.current?.minute}:
-        {highScoreRef?.current?.second}s
+        {highScoreRef?.current?.minute?`Highest Score:${highScoreRef?.current?.minute}:
+        ${highScoreRef?.current?.second}s}`:"For now there is no high score"}
       </p>
       <p>{`${time.minute < 10 ? `0${time.minute}` : time.minute}m:${
         time.second < 10 ? `0${time.second}` : time.second
