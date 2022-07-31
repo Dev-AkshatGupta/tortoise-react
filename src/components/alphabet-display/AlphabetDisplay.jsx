@@ -46,17 +46,14 @@ const AlphabetDisplay = () => {
     if (miliSeconds >= 900) {
       setTime((prev) => ({ ...prev, second: prev.second + 1 }));
       setMiliSeconds((prev) => prev - 900);
-      console.log(time);
     }
     if (time.second >= 59)
       setTime((prev) => ({ second: 0, minute: prev.minute + 1 }));
-    console.log(time);
   };
   useEffect(() => {
     intervalIdRef.current = setInterval(() => {
       setMiliSeconds((prev) => prev + 100);
     }, 100);
-    console.log({ intervalId: intervalIdRef });
     highScoreRef.current = JSON.parse(localStorage.getItem("highScore"));
     return () => {
       clearInterval(intervalIdRef.current);
@@ -69,10 +66,11 @@ const AlphabetDisplay = () => {
   }, [miliSeconds]);
 
   useEffect(() => {
+    console.log(gamesState.keyup === currentAlphabet);
+    console.log(gamesState.keyup == currentAlphabet);
     if (gamesState.keyup === currentAlphabet) {
       setCounter((prev) => prev + 1);
-      if (counter >= 5) {
-        console.log(highScoreRef.current);
+      if (counter >= 21) {
         if (highScoreRef.current?.second) {
           if (highScoreRef.current.minute >= time.minute) {
             if (highScoreRef.current.second >= time.second) {
@@ -94,7 +92,6 @@ const AlphabetDisplay = () => {
       gamesState.keyup !== "enter"
     ) {
       setMiliSeconds((prev) => prev + 500);
-      console.log(miliSeconds);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gamesState.keyup]);

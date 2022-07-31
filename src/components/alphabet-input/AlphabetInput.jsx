@@ -10,6 +10,7 @@ const AlphabetInput = () => {
     }}
     onKeyUp={(e)=>{
     gamesDispatch({type:"KEYUP",payload:e.key.toLowerCase()})
+    console.log(e.key.toLowerCase())
     }}
    
     
