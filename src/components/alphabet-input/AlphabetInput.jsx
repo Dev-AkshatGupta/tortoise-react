@@ -9,7 +9,7 @@ const AlphabetInput = () => {
       gamesDispatch({type:"INPUT",payload:e.target.value})
     }}
     onKeyUp={(e)=>{
-    gamesDispatch({type:"KEYUP",payload:e.key})
+    gamesDispatch({type:"KEYUP",payload:e.key.toLowerCase()})
     }}
    
     

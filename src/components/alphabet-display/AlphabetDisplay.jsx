@@ -86,8 +86,8 @@ const AlphabetDisplay = () => {
         setCurrentAlphabet(randomAlphabets());
       }
     } else if (
-      gamesState.keyup !== "Backspace" ||
-      gamesState.keyup !== "Enter"
+      gamesState.keyup !== "backspace" ||
+      gamesState.keyup !== "enter"
     ) {
       setMiliSeconds((prev) => prev + 500);
       console.log(miliSeconds);
