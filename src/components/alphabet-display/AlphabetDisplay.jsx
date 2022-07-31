@@ -105,7 +105,7 @@ const AlphabetDisplay = () => {
       <p>
         {highScoreRef?.current?.minute || highScoreRef?.current?.second
           ? `Highest Score:${highScoreRef?.current?.minute}:
-        ${highScoreRef?.current?.second}s}`
+        ${highScoreRef?.current?.second}s`
           : "For now there is no high score"}
       </p>
       <p>{`${time.minute < 10 ? `0${time.minute}` : time.minute}m:${
