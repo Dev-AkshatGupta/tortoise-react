@@ -44,12 +44,12 @@ const AlphabetDisplay = () => {
 
   const timeTaken = () => {
     if (miliSeconds >= 900) {
-      setTime((prev) => ({ ...prev, second: prev.second++ }));
+      setTime((prev) => ({ ...prev, second: prev.second + 1 }));
       setMiliSeconds((prev) => prev - 900);
       console.log(time);
     }
     if (time.second >= 59)
-      setTime((prev) => ({ second: 0, minute: prev.minute++ }));
+      setTime((prev) => ({ second: 0, minute: prev.minute + 1 }));
     console.log(time);
   };
   useEffect(() => {
