@@ -44,8 +44,8 @@ const AlphabetDisplay = () => {
 
   const timeTaken = () => {
     if (miliSeconds >= 900) {
-      setMiliSeconds((prev) => prev - 1000);
       setTime((prev) => ({ ...prev, second: prev.second++ }));
+      setMiliSeconds((prev) => prev - 900);
     }
     if (time.second >= 59)
       setTime((prev) => ({ second: 0, minute: prev.minute++ }));
@@ -69,6 +69,7 @@ const AlphabetDisplay = () => {
     if (gamesState.keyup === currentAlphabet) {
       setCounter((prev) => prev + 1);
       if (counter >= 5) {
+        console.log(highScoreRef.current);
         if (highScoreRef.current?.second) {
           if (highScoreRef.current.minute >= time.minute) {
             if (highScoreRef.current.second >= time.second) {
@@ -99,7 +100,7 @@ const AlphabetDisplay = () => {
     <>
       {" "}
       <div className="alphabet-display__wrapper">{currentAlphabet}</div>
-      <p>Highest Score:{highScoreRef?.current?.second}</p>
+      <p>Highest Score:{highScoreRef?.current?.minute}:{highScoreRef?.current?.second}s</p>
       <p>{`${time.minute < 10 ? `0${time.minute}` : time.minute}m:${
         time.second < 10 ? `0${time.second}` : time.second
       }s:${miliSeconds}ms`}</p>
